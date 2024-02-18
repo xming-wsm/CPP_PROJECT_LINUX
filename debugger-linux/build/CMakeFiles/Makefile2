@@ -81,12 +81,12 @@ clean: CMakeFiles/minidebug.dir/clean
 CMakeFiles/minidebug.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minidebug.dir/build.make CMakeFiles/minidebug.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minidebug.dir/build.make CMakeFiles/minidebug.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/build/CMakeFiles --progress-num=1,2,3 "Built target minidebug"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/build/CMakeFiles --progress-num=1,2,3,4,5,6 "Built target minidebug"
 .PHONY : CMakeFiles/minidebug.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/minidebug.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/build/CMakeFiles 6
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/minidebug.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/build/CMakeFiles 0
 .PHONY : CMakeFiles/minidebug.dir/rule

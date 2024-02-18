@@ -1,7 +1,9 @@
 #include "debugger.h"
 #include "register.h"
+#include <algorithm>
 #include <cstdint>
 #include <iomanip>
+#include <ios>
 #include <iostream>
 #include <ostream>
 #include <string>
@@ -62,7 +64,7 @@ void debugger::handle_command(const std::string& line) {
 
         continue_execution();
 
-    // 处理与断电有关的命令
+    // 处理与断点有关的命令
     } else if (is_prefix(command, "b") || is_prefix(command, "break")) {
         // removed the first two characters of the string, we assume the user has written 0xADDRESS
         std::string addr{args[1], 2};
@@ -75,7 +77,10 @@ void debugger::handle_command(const std::string& line) {
     
         } else if (is_prefix(args[1], "read")) {
             // "register read rax" or "reg read rax" 
-            std::cout << get_register_value(m_pid, get_register_from_name(args[2])) << std::endl;
+            std::cout << std::hex
+                      << "0x"
+                      << std::hex
+                      << get_register_value(m_pid, get_register_from_name(args[2])) << std::endl;
         
         } else if (is_prefix(args[1], "write")) {
             // "register write rax 0x22" or "reg write rax 0x22"
@@ -115,10 +120,11 @@ void debugger::set_breakpoint_at_address(std::intptr_t addr) {
 
 void debugger::dump_register() {
     for (const auto& rd : g_register_descriptors) {
-        std::cout << rd.reg_name << " 0x"
-                  << std::setfill('0') << std::setw(16)
-                  << get_register_value(m_pid, rd.reg_index) << std::endl;
-            
+        std::cout << std::setw(10) << std::setfill(' ')
+                  << rd.reg_name 
+                  << " 0x"
+                  << std::setfill('0') << std::setw(16) << std::hex
+                  << get_register_value(m_pid, rd.reg_index) << std::endl; 
     }
 }
 
@@ -150,7 +156,8 @@ void debugger::step_over_breakpoint() {
     auto possiable_breakpoint_location = get_pc() - 1;
 
     if (m_breakpoints.count(possiable_breakpoint_location)) {
-        auto& bp = m_breakpoints[possiable_breakpoint_location];
+        // auto& bp = m_breakpoints[possiable_breakpoint_location];
+        auto& bp = m_breakpoints.at(possiable_breakpoint_location);
 
         if (bp.is_enabled()) {
             auto previous_instruction_address = possiable_breakpoint_location;

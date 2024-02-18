@@ -97,19 +97,67 @@ CMakeFiles/minidebug.dir/linenoise.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/minidebug.dir/linenoise.c.s"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/linenoise.c -o CMakeFiles/minidebug.dir/linenoise.c.s
 
+CMakeFiles/minidebug.dir/debugger.cpp.o: CMakeFiles/minidebug.dir/flags.make
+CMakeFiles/minidebug.dir/debugger.cpp.o: ../debugger.cpp
+CMakeFiles/minidebug.dir/debugger.cpp.o: CMakeFiles/minidebug.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/minidebug.dir/debugger.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/minidebug.dir/debugger.cpp.o -MF CMakeFiles/minidebug.dir/debugger.cpp.o.d -o CMakeFiles/minidebug.dir/debugger.cpp.o -c /home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/debugger.cpp
+
+CMakeFiles/minidebug.dir/debugger.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/minidebug.dir/debugger.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/debugger.cpp > CMakeFiles/minidebug.dir/debugger.cpp.i
+
+CMakeFiles/minidebug.dir/debugger.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/minidebug.dir/debugger.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/debugger.cpp -o CMakeFiles/minidebug.dir/debugger.cpp.s
+
+CMakeFiles/minidebug.dir/breakpoint.cpp.o: CMakeFiles/minidebug.dir/flags.make
+CMakeFiles/minidebug.dir/breakpoint.cpp.o: ../breakpoint.cpp
+CMakeFiles/minidebug.dir/breakpoint.cpp.o: CMakeFiles/minidebug.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/minidebug.dir/breakpoint.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/minidebug.dir/breakpoint.cpp.o -MF CMakeFiles/minidebug.dir/breakpoint.cpp.o.d -o CMakeFiles/minidebug.dir/breakpoint.cpp.o -c /home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/breakpoint.cpp
+
+CMakeFiles/minidebug.dir/breakpoint.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/minidebug.dir/breakpoint.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/breakpoint.cpp > CMakeFiles/minidebug.dir/breakpoint.cpp.i
+
+CMakeFiles/minidebug.dir/breakpoint.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/minidebug.dir/breakpoint.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/breakpoint.cpp -o CMakeFiles/minidebug.dir/breakpoint.cpp.s
+
+CMakeFiles/minidebug.dir/register.cpp.o: CMakeFiles/minidebug.dir/flags.make
+CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp
+CMakeFiles/minidebug.dir/register.cpp.o: CMakeFiles/minidebug.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/minidebug.dir/register.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/minidebug.dir/register.cpp.o -MF CMakeFiles/minidebug.dir/register.cpp.o.d -o CMakeFiles/minidebug.dir/register.cpp.o -c /home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/register.cpp
+
+CMakeFiles/minidebug.dir/register.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/minidebug.dir/register.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/register.cpp > CMakeFiles/minidebug.dir/register.cpp.i
+
+CMakeFiles/minidebug.dir/register.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/minidebug.dir/register.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/register.cpp -o CMakeFiles/minidebug.dir/register.cpp.s
+
 # Object files for target minidebug
 minidebug_OBJECTS = \
 "CMakeFiles/minidebug.dir/main.cpp.o" \
-"CMakeFiles/minidebug.dir/linenoise.c.o"
+"CMakeFiles/minidebug.dir/linenoise.c.o" \
+"CMakeFiles/minidebug.dir/debugger.cpp.o" \
+"CMakeFiles/minidebug.dir/breakpoint.cpp.o" \
+"CMakeFiles/minidebug.dir/register.cpp.o"
 
 # External object files for target minidebug
 minidebug_EXTERNAL_OBJECTS =
 
 minidebug: CMakeFiles/minidebug.dir/main.cpp.o
 minidebug: CMakeFiles/minidebug.dir/linenoise.c.o
+minidebug: CMakeFiles/minidebug.dir/debugger.cpp.o
+minidebug: CMakeFiles/minidebug.dir/breakpoint.cpp.o
+minidebug: CMakeFiles/minidebug.dir/register.cpp.o
 minidebug: CMakeFiles/minidebug.dir/build.make
 minidebug: CMakeFiles/minidebug.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable minidebug"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX executable minidebug"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/minidebug.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -129,6 +129,54 @@ minidebug/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minidebug.dir/build.make CMakeFiles/minidebug.dir/build
 .PHONY : minidebug/fast
 
+breakpoint.o: breakpoint.cpp.o
+.PHONY : breakpoint.o
+
+# target to build an object file
+breakpoint.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minidebug.dir/build.make CMakeFiles/minidebug.dir/breakpoint.cpp.o
+.PHONY : breakpoint.cpp.o
+
+breakpoint.i: breakpoint.cpp.i
+.PHONY : breakpoint.i
+
+# target to preprocess a source file
+breakpoint.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minidebug.dir/build.make CMakeFiles/minidebug.dir/breakpoint.cpp.i
+.PHONY : breakpoint.cpp.i
+
+breakpoint.s: breakpoint.cpp.s
+.PHONY : breakpoint.s
+
+# target to generate assembly for a file
+breakpoint.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minidebug.dir/build.make CMakeFiles/minidebug.dir/breakpoint.cpp.s
+.PHONY : breakpoint.cpp.s
+
+debugger.o: debugger.cpp.o
+.PHONY : debugger.o
+
+# target to build an object file
+debugger.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minidebug.dir/build.make CMakeFiles/minidebug.dir/debugger.cpp.o
+.PHONY : debugger.cpp.o
+
+debugger.i: debugger.cpp.i
+.PHONY : debugger.i
+
+# target to preprocess a source file
+debugger.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minidebug.dir/build.make CMakeFiles/minidebug.dir/debugger.cpp.i
+.PHONY : debugger.cpp.i
+
+debugger.s: debugger.cpp.s
+.PHONY : debugger.s
+
+# target to generate assembly for a file
+debugger.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minidebug.dir/build.make CMakeFiles/minidebug.dir/debugger.cpp.s
+.PHONY : debugger.cpp.s
+
 linenoise.o: linenoise.c.o
 .PHONY : linenoise.o
 
@@ -177,6 +225,30 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/minidebug.dir/build.make CMakeFiles/minidebug.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+register.o: register.cpp.o
+.PHONY : register.o
+
+# target to build an object file
+register.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minidebug.dir/build.make CMakeFiles/minidebug.dir/register.cpp.o
+.PHONY : register.cpp.o
+
+register.i: register.cpp.i
+.PHONY : register.i
+
+# target to preprocess a source file
+register.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minidebug.dir/build.make CMakeFiles/minidebug.dir/register.cpp.i
+.PHONY : register.cpp.i
+
+register.s: register.cpp.s
+.PHONY : register.s
+
+# target to generate assembly for a file
+register.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/minidebug.dir/build.make CMakeFiles/minidebug.dir/register.cpp.s
+.PHONY : register.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -186,12 +258,21 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... minidebug"
+	@echo "... breakpoint.o"
+	@echo "... breakpoint.i"
+	@echo "... breakpoint.s"
+	@echo "... debugger.o"
+	@echo "... debugger.i"
+	@echo "... debugger.s"
 	@echo "... linenoise.o"
 	@echo "... linenoise.i"
 	@echo "... linenoise.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... register.o"
+	@echo "... register.i"
+	@echo "... register.s"
 .PHONY : help
 
 
