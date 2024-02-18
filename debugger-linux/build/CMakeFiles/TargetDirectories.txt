@@ -1,0 +1,3 @@
+/home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/build/CMakeFiles/minidebug.dir
+/home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/build/CMakeFiles/edit_cache.dir
+/home/xming/Documents/CPP_PROJECT_LINUX/debugger-linux/build/CMakeFiles/rebuild_cache.dir
