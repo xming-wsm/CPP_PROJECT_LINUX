@@ -1,3 +1,3 @@
 cmake ..
 make
-./minidebug test
+./minidebug test_dwarf4

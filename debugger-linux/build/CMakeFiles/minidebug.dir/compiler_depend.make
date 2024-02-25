@@ -227,19 +227,40 @@ CMakeFiles/minidebug.dir/breakpoint.cpp.o: ../breakpoint.cpp \
 CMakeFiles/minidebug.dir/debugger.cpp.o: ../debugger.cpp \
   /usr/include/stdc-predef.h \
   ../debugger.h \
-  /usr/include/c++/12/iterator \
-  /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h \
-  /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h \
+  /usr/include/x86_64-linux-gnu/bits/types/siginfo_t.h \
+  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+  /usr/include/x86_64-linux-gnu/bits/types.h \
   /usr/include/features.h \
   /usr/include/features-time64.h \
-  /usr/include/x86_64-linux-gnu/bits/wordsize.h \
   /usr/include/x86_64-linux-gnu/bits/timesize.h \
   /usr/include/x86_64-linux-gnu/sys/cdefs.h \
   /usr/include/x86_64-linux-gnu/bits/long-double.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs.h \
   /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+  /usr/include/x86_64-linux-gnu/bits/typesizes.h \
+  /usr/include/x86_64-linux-gnu/bits/time64.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h \
+  /usr/include/x86_64-linux-gnu/bits/siginfo-arch.h \
+  /usr/include/c++/12/cstdio \
+  /usr/include/x86_64-linux-gnu/c++/12/bits/c++config.h \
+  /usr/include/x86_64-linux-gnu/c++/12/bits/os_defines.h \
   /usr/include/x86_64-linux-gnu/c++/12/bits/cpu_defines.h \
   /usr/include/c++/12/pstl/pstl_config.h \
+  /usr/include/stdio.h \
+  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
+  /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h \
+  /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
+  /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
+  /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
+  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+  /usr/include/x86_64-linux-gnu/bits/floatn.h \
+  /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
+  /usr/include/c++/12/iterator \
   /usr/include/c++/12/bits/stl_iterator_base_types.h \
   /usr/include/c++/12/type_traits \
   /usr/include/c++/12/bits/stl_iterator_base_funcs.h \
@@ -256,17 +277,9 @@ CMakeFiles/minidebug.dir/debugger.cpp.o: ../debugger.cpp \
   /usr/include/c++/12/bits/postypes.h \
   /usr/include/c++/12/cwchar \
   /usr/include/wchar.h \
-  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
-  /usr/include/x86_64-linux-gnu/bits/floatn.h \
-  /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
-  /usr/lib/gcc/x86_64-linux-gnu/12/include/stddef.h \
-  /usr/lib/gcc/x86_64-linux-gnu/12/include/stdarg.h \
   /usr/include/x86_64-linux-gnu/bits/wchar.h \
   /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
-  /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
   /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
   /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
   /usr/include/c++/12/bits/stream_iterator.h \
@@ -280,9 +293,6 @@ CMakeFiles/minidebug.dir/debugger.cpp.o: ../debugger.cpp \
   /usr/include/x86_64-linux-gnu/bits/locale.h \
   /usr/include/c++/12/cctype \
   /usr/include/ctype.h \
-  /usr/include/x86_64-linux-gnu/bits/types.h \
-  /usr/include/x86_64-linux-gnu/bits/typesizes.h \
-  /usr/include/x86_64-linux-gnu/bits/time64.h \
   /usr/include/x86_64-linux-gnu/bits/endian.h \
   /usr/include/x86_64-linux-gnu/bits/endianness.h \
   /usr/include/c++/12/bits/ios_base.h \
@@ -368,13 +378,6 @@ CMakeFiles/minidebug.dir/debugger.cpp.o: ../debugger.cpp \
   /usr/include/alloca.h \
   /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
   /usr/include/c++/12/bits/std_abs.h \
-  /usr/include/c++/12/cstdio \
-  /usr/include/stdio.h \
-  /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
-  /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
-  /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
   /usr/include/c++/12/cerrno \
   /usr/include/errno.h \
   /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -440,9 +443,6 @@ CMakeFiles/minidebug.dir/debugger.cpp.o: ../debugger.cpp \
   /usr/include/x86_64-linux-gnu/bits/signum-generic.h \
   /usr/include/x86_64-linux-gnu/bits/signum-arch.h \
   /usr/include/x86_64-linux-gnu/bits/types/sig_atomic_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/siginfo_t.h \
-  /usr/include/x86_64-linux-gnu/bits/types/__sigval_t.h \
-  /usr/include/x86_64-linux-gnu/bits/siginfo-arch.h \
   /usr/include/x86_64-linux-gnu/bits/siginfo-consts.h \
   /usr/include/x86_64-linux-gnu/bits/siginfo-consts-arch.h \
   /usr/include/x86_64-linux-gnu/bits/types/sigval_t.h \
@@ -463,21 +463,77 @@ CMakeFiles/minidebug.dir/debugger.cpp.o: ../debugger.cpp \
   /usr/include/c++/12/sstream \
   /usr/include/c++/12/bits/sstream.tcc \
   /usr/include/c++/12/stdlib.h \
+  /usr/include/x86_64-linux-gnu/sys/user.h \
+  /usr/include/c++/12/fstream \
+  /usr/include/c++/12/bits/codecvt.h \
+  /usr/include/x86_64-linux-gnu/c++/12/bits/basic_file.h \
+  /usr/include/x86_64-linux-gnu/c++/12/bits/c++io.h \
+  /usr/include/c++/12/bits/fstream.tcc \
+  /usr/include/x86_64-linux-gnu/sys/stat.h \
+  /usr/include/x86_64-linux-gnu/bits/stat.h \
+  /usr/include/x86_64-linux-gnu/bits/struct_stat.h \
+  /usr/include/x86_64-linux-gnu/bits/statx.h \
+  /usr/include/linux/stat.h \
+  /usr/include/linux/types.h \
+  /usr/include/x86_64-linux-gnu/asm/types.h \
+  /usr/include/asm-generic/types.h \
+  /usr/include/asm-generic/int-ll64.h \
+  /usr/include/x86_64-linux-gnu/asm/bitsperlong.h \
+  /usr/include/asm-generic/bitsperlong.h \
+  /usr/include/linux/posix_types.h \
+  /usr/include/linux/stddef.h \
+  /usr/include/x86_64-linux-gnu/asm/posix_types.h \
+  /usr/include/x86_64-linux-gnu/asm/posix_types_64.h \
+  /usr/include/asm-generic/posix_types.h \
+  /usr/include/x86_64-linux-gnu/bits/statx-generic.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_statx_timestamp.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_statx.h \
+  /usr/include/fcntl.h \
+  /usr/include/x86_64-linux-gnu/bits/fcntl.h \
+  /usr/include/x86_64-linux-gnu/bits/fcntl-linux.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h \
+  /usr/include/linux/falloc.h \
   ../linenoise.h \
   ../breakpoint.h \
-  /usr/include/x86_64-linux-gnu/sys/user.h \
-  ../register.h \
+  /usr/local/include/libelfin/elf/elf++.hh \
+  /usr/local/include/libelfin/elf/common.hh \
+  /usr/local/include/libelfin/elf/data.hh \
+  /usr/include/c++/12/cstring \
+  /usr/include/string.h \
+  /usr/include/strings.h \
   /usr/include/c++/12/cstddef \
+  /usr/include/c++/12/memory \
+  /usr/include/c++/12/bits/stl_tempbuf.h \
+  /usr/include/c++/12/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/12/bits/align.h \
+  /usr/include/c++/12/bit \
+  /usr/include/c++/12/bits/unique_ptr.h \
+  /usr/include/c++/12/bits/shared_ptr.h \
+  /usr/include/c++/12/bits/shared_ptr_base.h \
+  /usr/include/c++/12/bits/allocated_ptr.h \
+  /usr/include/c++/12/ext/concurrence.h \
+  /usr/include/c++/12/bits/shared_ptr_atomic.h \
+  /usr/include/c++/12/bits/atomic_base.h \
+  /usr/include/c++/12/bits/atomic_lockfree_defines.h \
+  /usr/include/c++/12/backward/auto_ptr.h \
+  /usr/include/c++/12/pstl/glue_memory_defs.h \
+  /usr/include/c++/12/pstl/execution_defs.h \
+  /usr/local/include/libelfin/dwarf/dwarf++.hh \
+  /usr/local/include/libelfin/dwarf/data.hh \
+  /usr/local/include/libelfin/dwarf/small_vector.hh \
+  /usr/include/c++/12/map \
+  /usr/include/c++/12/bits/stl_tree.h \
+  /usr/include/c++/12/bits/stl_map.h \
+  /usr/include/c++/12/bits/stl_multimap.h \
+  ../register.h \
   /usr/include/c++/12/array \
   /usr/include/c++/12/compare \
   /usr/include/c++/12/algorithm \
   /usr/include/c++/12/bits/stl_algo.h \
   /usr/include/c++/12/bits/algorithmfwd.h \
   /usr/include/c++/12/bits/stl_heap.h \
-  /usr/include/c++/12/bits/stl_tempbuf.h \
   /usr/include/c++/12/bits/uniform_int_dist.h \
   /usr/include/c++/12/pstl/glue_algorithm_defs.h \
-  /usr/include/c++/12/pstl/execution_defs.h \
   /usr/include/c++/12/iomanip \
   /usr/include/c++/12/locale \
   /usr/include/c++/12/bits/locale_facets_nonio.h \
@@ -485,10 +541,10 @@ CMakeFiles/minidebug.dir/debugger.cpp.o: ../debugger.cpp \
   /usr/include/x86_64-linux-gnu/c++/12/bits/time_members.h \
   /usr/include/x86_64-linux-gnu/c++/12/bits/messages_members.h \
   /usr/include/libintl.h \
-  /usr/include/c++/12/bits/codecvt.h \
   /usr/include/c++/12/bits/locale_facets_nonio.tcc \
   /usr/include/c++/12/bits/locale_conv.h \
-  /usr/include/c++/12/bits/quoted_string.h
+  /usr/include/c++/12/bits/quoted_string.h \
+  /usr/local/include/libelfin/dwarf/data.hh
 
 CMakeFiles/minidebug.dir/linenoise.c.o: ../linenoise.c \
   /usr/include/stdc-predef.h \
@@ -827,9 +883,68 @@ CMakeFiles/minidebug.dir/main.cpp.o: ../main.cpp \
   /usr/include/c++/12/sstream \
   /usr/include/c++/12/bits/sstream.tcc \
   /usr/include/c++/12/stdlib.h \
+  /usr/include/x86_64-linux-gnu/sys/user.h \
+  /usr/include/c++/12/fstream \
+  /usr/include/c++/12/bits/codecvt.h \
+  /usr/include/x86_64-linux-gnu/c++/12/bits/basic_file.h \
+  /usr/include/x86_64-linux-gnu/c++/12/bits/c++io.h \
+  /usr/include/c++/12/bits/fstream.tcc \
+  /usr/include/x86_64-linux-gnu/sys/stat.h \
+  /usr/include/x86_64-linux-gnu/bits/stat.h \
+  /usr/include/x86_64-linux-gnu/bits/struct_stat.h \
+  /usr/include/x86_64-linux-gnu/bits/statx.h \
+  /usr/include/linux/stat.h \
+  /usr/include/linux/types.h \
+  /usr/include/x86_64-linux-gnu/asm/types.h \
+  /usr/include/asm-generic/types.h \
+  /usr/include/asm-generic/int-ll64.h \
+  /usr/include/x86_64-linux-gnu/asm/bitsperlong.h \
+  /usr/include/asm-generic/bitsperlong.h \
+  /usr/include/linux/posix_types.h \
+  /usr/include/linux/stddef.h \
+  /usr/include/x86_64-linux-gnu/asm/posix_types.h \
+  /usr/include/x86_64-linux-gnu/asm/posix_types_64.h \
+  /usr/include/asm-generic/posix_types.h \
+  /usr/include/x86_64-linux-gnu/bits/statx-generic.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_statx_timestamp.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_statx.h \
+  /usr/include/fcntl.h \
+  /usr/include/x86_64-linux-gnu/bits/fcntl.h \
+  /usr/include/x86_64-linux-gnu/bits/fcntl-linux.h \
+  /usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h \
+  /usr/include/linux/falloc.h \
   ../linenoise.h \
   ../breakpoint.h \
-  /usr/include/x86_64-linux-gnu/sys/user.h
+  /usr/local/include/libelfin/elf/elf++.hh \
+  /usr/local/include/libelfin/elf/common.hh \
+  /usr/local/include/libelfin/elf/data.hh \
+  /usr/include/c++/12/cstring \
+  /usr/include/string.h \
+  /usr/include/strings.h \
+  /usr/include/c++/12/cstddef \
+  /usr/include/c++/12/memory \
+  /usr/include/c++/12/bits/stl_tempbuf.h \
+  /usr/include/c++/12/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/12/bits/align.h \
+  /usr/include/c++/12/bit \
+  /usr/include/c++/12/bits/unique_ptr.h \
+  /usr/include/c++/12/bits/shared_ptr.h \
+  /usr/include/c++/12/bits/shared_ptr_base.h \
+  /usr/include/c++/12/bits/allocated_ptr.h \
+  /usr/include/c++/12/ext/concurrence.h \
+  /usr/include/c++/12/bits/shared_ptr_atomic.h \
+  /usr/include/c++/12/bits/atomic_base.h \
+  /usr/include/c++/12/bits/atomic_lockfree_defines.h \
+  /usr/include/c++/12/backward/auto_ptr.h \
+  /usr/include/c++/12/pstl/glue_memory_defs.h \
+  /usr/include/c++/12/pstl/execution_defs.h \
+  /usr/local/include/libelfin/dwarf/dwarf++.hh \
+  /usr/local/include/libelfin/dwarf/data.hh \
+  /usr/local/include/libelfin/dwarf/small_vector.hh \
+  /usr/include/c++/12/map \
+  /usr/include/c++/12/bits/stl_tree.h \
+  /usr/include/c++/12/bits/stl_map.h \
+  /usr/include/c++/12/bits/stl_multimap.h
 
 CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
   /usr/include/stdc-predef.h \
@@ -1064,8 +1179,6 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
   /usr/include/c++/12/pstl/execution_defs.h
 
 
-../register.cpp:
-
 /usr/include/x86_64-linux-gnu/sys/personality.h:
 
 ../main.cpp:
@@ -1081,12 +1194,6 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 /usr/include/x86_64-linux-gnu/asm/ioctls.h:
 
 /usr/include/x86_64-linux-gnu/sys/ioctl.h:
-
-/usr/include/x86_64-linux-gnu/bits/struct_stat.h:
-
-/usr/include/x86_64-linux-gnu/sys/stat.h:
-
-/usr/include/string.h:
 
 /usr/include/x86_64-linux-gnu/bits/termios-misc.h:
 
@@ -1108,11 +1215,75 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 
 /usr/include/c++/12/bits/quoted_string.h:
 
-/usr/include/c++/12/bits/locale_facets_nonio.tcc:
+/usr/include/c++/12/ctime:
+
+/usr/include/c++/12/locale:
+
+/usr/include/c++/12/bits/stl_algo.h:
+
+/usr/include/c++/12/algorithm:
+
+/usr/include/c++/12/compare:
+
+/usr/include/c++/12/array:
+
+/usr/include/c++/12/bits/stl_multimap.h:
+
+/usr/include/c++/12/bits/stl_map.h:
+
+/usr/include/c++/12/bits/stl_tree.h:
+
+/usr/local/include/libelfin/dwarf/dwarf++.hh:
+
+/usr/include/c++/12/pstl/execution_defs.h:
+
+/usr/include/c++/12/pstl/glue_memory_defs.h:
+
+/usr/include/c++/12/backward/auto_ptr.h:
+
+/usr/include/c++/12/bits/atomic_lockfree_defines.h:
+
+/usr/include/c++/12/bits/shared_ptr_atomic.h:
+
+/usr/include/c++/12/ext/concurrence.h:
+
+/usr/include/c++/12/bits/shared_ptr_base.h:
+
+/usr/include/c++/12/bits/shared_ptr.h:
+
+/usr/include/c++/12/bits/stl_raw_storage_iter.h:
+
+/usr/include/c++/12/bits/stl_tempbuf.h:
+
+/usr/include/string.h:
+
+/usr/local/include/libelfin/elf/data.hh:
+
+/usr/local/include/libelfin/elf/common.hh:
+
+../linenoise.h:
+
+/usr/include/linux/falloc.h:
 
 /usr/include/x86_64-linux-gnu/c++/12/bits/time_members.h:
 
-/usr/include/c++/12/ctime:
+/usr/include/x86_64-linux-gnu/bits/types/struct_iovec.h:
+
+/usr/include/x86_64-linux-gnu/bits/fcntl-linux.h:
+
+/usr/include/fcntl.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_statx_timestamp.h:
+
+/usr/include/x86_64-linux-gnu/bits/statx-generic.h:
+
+/usr/include/c++/12/bits/stl_heap.h:
+
+/usr/include/asm-generic/posix_types.h:
+
+/usr/include/x86_64-linux-gnu/asm/posix_types.h:
+
+/usr/include/linux/posix_types.h:
 
 /usr/include/c++/12/bits/basic_string.h:
 
@@ -1122,9 +1293,19 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 
 /usr/include/c++/12/bits/refwrap.h:
 
+/usr/include/c++/12/cstddef:
+
+/usr/include/c++/12/cerrno:
+
 /usr/include/c++/12/stdlib.h:
 
+/usr/include/x86_64-linux-gnu/bits/struct_stat.h:
+
 /usr/include/c++/12/bits/stl_function.h:
+
+/usr/include/c++/12/iomanip:
+
+/usr/include/c++/12/debug/debug.h:
 
 /usr/include/c++/12/bits/concept_check.h:
 
@@ -1134,6 +1315,8 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 
 /usr/include/c++/12/bits/stl_iterator_base_types.h:
 
+/usr/include/c++/12/bits/atomic_base.h:
+
 /usr/include/x86_64-linux-gnu/c++/12/bits/ctype_base.h:
 
 /usr/include/c++/12/bits/cxxabi_forced.h:
@@ -1142,15 +1325,9 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/siginfo-arch.h:
 
-/usr/include/c++/12/cerrno:
-
-/usr/include/c++/12/cstddef:
-
-/usr/include/c++/12/bits/codecvt.h:
-
-/usr/include/c++/12/bits/cpp_type_traits.h:
-
 /usr/include/x86_64-linux-gnu/c++/12/bits/messages_members.h:
+
+/usr/local/include/libelfin/dwarf/small_vector.hh:
 
 /usr/include/x86_64-linux-gnu/bits/wordsize.h:
 
@@ -1166,13 +1343,21 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 
 /usr/include/c++/12/bits/stl_algobase.h:
 
+/usr/include/c++/12/cstring:
+
 /usr/include/ctype.h:
 
 /usr/include/x86_64-linux-gnu/bits/locale.h:
 
+/usr/include/c++/12/pstl/glue_algorithm_defs.h:
+
+/usr/include/c++/12/bits/localefwd.h:
+
 /usr/include/locale.h:
 
 /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h:
+
+/usr/include/x86_64-linux-gnu/asm/bitsperlong.h:
 
 /usr/include/c++/12/cctype:
 
@@ -1190,9 +1375,9 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 
 /usr/include/x86_64-linux-gnu/sys/select.h:
 
-/usr/include/unistd.h:
-
 /usr/include/c++/12/string:
+
+/usr/include/c++/12/bit:
 
 /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h:
 
@@ -1204,6 +1389,12 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 
 /usr/include/c++/12/bits/char_traits.h:
 
+/usr/include/c++/12/bits/locale_facets_nonio.tcc:
+
+/usr/include/x86_64-linux-gnu/asm/types.h:
+
+/usr/include/c++/12/bits/allocated_ptr.h:
+
 /usr/include/c++/12/bits/nested_exception.h:
 
 /usr/include/c++/12/backward/binders.h:
@@ -1214,6 +1405,8 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:
 
+/usr/include/linux/stddef.h:
+
 /usr/include/c++/12/bits/cxxabi_init_exception.h:
 
 /usr/include/c++/12/bits/locale_classes.h:
@@ -1221,6 +1414,8 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 /usr/include/c++/12/bits/exception_defines.h:
 
 /usr/include/x86_64-linux-gnu/bits/atomic_wide_counter.h:
+
+/usr/include/x86_64-linux-gnu/bits/fcntl.h:
 
 /usr/include/c++/12/bits/locale_classes.tcc:
 
@@ -1238,11 +1433,15 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h:
 
-/usr/include/c++/12/algorithm:
-
 /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/wint_t.h:
+
+/usr/include/c++/12/bits/algorithmfwd.h:
+
+/usr/include/x86_64-linux-gnu/bits/floatn-common.h:
+
+/usr/include/c++/12/bits/unique_ptr.h:
 
 /usr/include/c++/12/iterator:
 
@@ -1256,9 +1455,9 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/sigaction.h:
 
-/usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
-
 /usr/include/c++/12/cstdint:
+
+/usr/local/include/libelfin/elf/elf++.hh:
 
 /usr/include/c++/12/ext/atomicity.h:
 
@@ -1270,13 +1469,13 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h:
 
-../linenoise.h:
+../register.h:
 
 /usr/include/x86_64-linux-gnu/bits/select.h:
 
-../register.h:
-
 /usr/include/x86_64-linux-gnu/bits/time.h:
+
+/usr/include/x86_64-linux-gnu/asm/posix_types_64.h:
 
 /usr/include/x86_64-linux-gnu/bits/cpu-set.h:
 
@@ -1338,15 +1537,13 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/types/locale_t.h:
 
+/usr/include/c++/12/bits/align.h:
+
 /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h:
 
 /usr/include/c++/12/bits/hash_bytes.h:
 
 /usr/include/x86_64-linux-gnu/bits/time64.h:
-
-/usr/include/c++/12/debug/debug.h:
-
-/usr/include/c++/12/iomanip:
 
 /usr/include/x86_64-linux-gnu/bits/types/__FILE.h:
 
@@ -1386,10 +1583,6 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h:
 
-/usr/include/x86_64-linux-gnu/c++/12/bits/gthr-default.h:
-
-/usr/include/c++/12/cstdio:
-
 /usr/include/x86_64-linux-gnu/bits/sigcontext.h:
 
 /usr/include/c++/12/bits/stl_iterator.h:
@@ -1408,6 +1601,10 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 
 /usr/include/c++/12/bits/ptr_traits.h:
 
+/usr/local/include/libelfin/dwarf/data.hh:
+
+/usr/include/c++/12/memory:
+
 /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/struct___jmp_buf_tag.h:
@@ -1423,6 +1620,10 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 /usr/include/pthread.h:
 
 /usr/include/x86_64-linux-gnu/gnu/stubs-64.h:
+
+/usr/include/x86_64-linux-gnu/sys/stat.h:
+
+/usr/include/x86_64-linux-gnu/bits/types/struct_statx.h:
 
 /usr/include/c++/12/bits/stringfwd.h:
 
@@ -1482,9 +1683,11 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/stdlib-float.h:
 
-/usr/include/c++/12/locale:
+/usr/include/asm-generic/bitsperlong.h:
 
 /usr/include/c++/12/ext/type_traits.h:
+
+/usr/include/asm-generic/types.h:
 
 /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h:
 
@@ -1520,6 +1723,8 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/types/error_t.h:
 
+/usr/include/c++/12/map:
+
 /usr/include/c++/12/bits/charconv.h:
 
 /usr/include/c++/12/bits/basic_string.tcc:
@@ -1537,8 +1742,6 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 /usr/include/x86_64-linux-gnu/bits/getopt_posix.h:
 
 /usr/include/c++/12/bits/streambuf.tcc:
-
-/usr/include/c++/12/pstl/execution_defs.h:
 
 /usr/include/c++/12/string_view:
 
@@ -1608,6 +1811,8 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 
 /usr/include/x86_64-linux-gnu/bits/ptrace-shared.h:
 
+/usr/include/c++/12/fstream:
+
 ../debugger.cpp:
 
 ../debugger.h:
@@ -1636,20 +1841,30 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 
 /usr/include/x86_64-linux-gnu/sys/user.h:
 
-/usr/include/c++/12/array:
+/usr/include/c++/12/bits/cpp_type_traits.h:
 
-/usr/include/c++/12/compare:
+/usr/include/c++/12/bits/codecvt.h:
 
-/usr/include/c++/12/bits/stl_algo.h:
+/usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h:
 
-/usr/include/x86_64-linux-gnu/bits/floatn-common.h:
+/usr/include/x86_64-linux-gnu/c++/12/bits/basic_file.h:
 
-/usr/include/c++/12/bits/algorithmfwd.h:
+/usr/include/x86_64-linux-gnu/c++/12/bits/c++io.h:
 
-/usr/include/c++/12/bits/stl_heap.h:
+/usr/include/c++/12/bits/fstream.tcc:
 
-/usr/include/c++/12/bits/stl_tempbuf.h:
+/usr/include/unistd.h:
 
-/usr/include/c++/12/bits/localefwd.h:
+/usr/include/x86_64-linux-gnu/bits/statx.h:
 
-/usr/include/c++/12/pstl/glue_algorithm_defs.h:
+/usr/include/linux/stat.h:
+
+/usr/include/x86_64-linux-gnu/c++/12/bits/gthr-default.h:
+
+/usr/include/c++/12/cstdio:
+
+/usr/include/linux/types.h:
+
+../register.cpp:
+
+/usr/include/asm-generic/int-ll64.h:

@@ -1,1 +1,1 @@
-/usr/bin/c++ CMakeFiles/minidebug.dir/main.cpp.o CMakeFiles/minidebug.dir/linenoise.c.o CMakeFiles/minidebug.dir/debugger.cpp.o CMakeFiles/minidebug.dir/breakpoint.cpp.o CMakeFiles/minidebug.dir/register.cpp.o -o minidebug 
+/usr/bin/c++ CMakeFiles/minidebug.dir/main.cpp.o CMakeFiles/minidebug.dir/linenoise.c.o CMakeFiles/minidebug.dir/debugger.cpp.o CMakeFiles/minidebug.dir/breakpoint.cpp.o CMakeFiles/minidebug.dir/register.cpp.o -o minidebug  -ldwarf++ -lelf++ 

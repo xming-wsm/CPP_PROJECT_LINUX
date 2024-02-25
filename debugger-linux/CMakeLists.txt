@@ -6,3 +6,5 @@ add_executable( minidebug main.cpp linenoise.c linenoise.h
                 debugger.h      debugger.cpp
                 breakpoint.h    breakpoint.cpp
                 register.h      register.cpp)
+
+target_link_libraries(minidebug dwarf++ elf++)
