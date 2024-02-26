@@ -80,8 +80,13 @@ public:
     dwarf::line_table::iterator get_line_entry_from_pc(uint64_t pc);
     // 初始化加载地址
     void initialise_load_address();
+    // 进行加载地址偏置
+    uint64_t offset_dwatf_address(uint64_t addr);
     // 去掉加载地址偏偏置
     uint64_t  offset_load_address(uint64_t addr);
+    // 封装，得到去偏置后的PC地址
+    uint64_t get_current_pc_offset_address();
+
     // 根据指定行数打印源文件代码文本及其上下文
     void print_source(const std::string& file_name, uint64_t specify_line);
     
@@ -90,12 +95,16 @@ public:
     // 信号量处理函数
     void handle_sigtrap(siginfo_t info);
 
-    // 单步步进指令
+    // 指令级单步步进
     void single_step_instruction();
-    // 带有断点检查的单步步进指令
+    // 带有短的检查的指令级单步步进
     void single_step_instruction_with_breakpoint_check();
     // 跳出
     void step_out();
+    // 单步执行(逐语句)
+    void step_in();
+    // 逐过程
+    void step_over();
 
 private:
     std::string m_prog_name;    // 可执行二进制文件的名字

@@ -108,12 +108,29 @@ void debugger::handle_command(const std::string& line) {
             write_memory(std::stol(addr, 0, 16), std::stol(val, 0, 16));
         }
 
-    // 单步步进
+
+    // 指令级单步步进
     } else if (is_prefix(command, "stepi")) {
         single_step_instruction_with_breakpoint_check();
         auto line_entry = get_line_entry_from_pc(get_pc());
         print_source(line_entry->file->path, line_entry->line);
+    
+    // 逐过程
+    } else if (is_prefix(command, "next") || is_prefix(command, "n")) {
+        step_over();
+
+
+    // 逐语句
+    } else if (is_prefix(command, "step") || is_prefix(command, "s")) {
+        step_in();
+
+    // 跳出
+    } else if (is_prefix(command, "finish")) {
+        step_out();
+
     }
+
+
 
     else {
         std::cerr << "Unknown command\n";
@@ -234,7 +251,8 @@ void debugger::wait_for_signal() {
  * 7. 若遍历完所有的单元都没有找到，则抛出错误
 */
 dwarf::die debugger::get_function_from_pc(uint64_t pc) {
-    for (auto &cu : m_dwarf.compilation_units()) {
+    const std::vector<dwarf::compilation_unit> &uints = m_dwarf.compilation_units();
+    for (const auto& cu : uints) {
         // Compilation Unit包含多个IDEs，如果pc在某个CU中，则需要遍历该Cu的IDEs，判断其tag
         if (dwarf::die_pc_range(cu.root()).contains(pc)) {
             for (const auto& die : cu.root()) {
@@ -303,6 +321,22 @@ uint64_t debugger::offset_load_address(uint64_t addr) {
     }
     return -1;
 }
+
+
+uint64_t debugger::offset_dwatf_address(uint64_t addr) {
+    return addr + m_load_address;
+}
+
+
+
+uint64_t debugger::get_current_pc_offset_address() {
+    return offset_load_address(get_pc());
+}
+
+
+
+
+
 
 
 /**
@@ -375,7 +409,11 @@ void debugger::handle_sigtrap(siginfo_t info) {
 
 
 /*
- * 在不检查当前位置是否有断点的情况下，让子进程单步执行。
+ * @brief: 在不检查当前位置是否有断点的情况下，让子进程单步执行指令。
+ * @note: 本函数与single_step_instruction_with_breakpoint_check函数都是
+ *        指令级操作（instruction)，更加的底层。
+ *        而step_over, step_in, step_out函数都是以代码段为操作，相对来说
+ *        更上层一些。
  **/
 void debugger::single_step_instruction() {
     // PTRACE_SINGLESTEP: single step the process
@@ -404,9 +442,118 @@ void debugger::single_step_instruction_with_breakpoint_check() {
 
 void debugger::step_out() {
     auto frame_point = get_register_value(m_pid, reg_x86_64::rbp);
-    // 函数返回地址在rbp后
+    // 使用[read_memory]读取函数返回地址
     auto return_address = read_memory(frame_point + 8);
+
+
+    // 有两种情况需要讨论
+    // 1. return_address 所在的地址本身就有一个断点，则不需要打断点，直接
+    //    [continue_execution]函数即可
+    // 2. return_address 所在的地址本身没有断点。
+    //    （1）打断点   set_break_at_address()
+    //    （2）执行     continue_exeuction()
+    //    （3）消除断点 remove_breakpoint_at_address()
+    bool should_remove_breakpoint = false;
+    if (!m_breakpoints.count(return_address)) {
+        set_breakpoint_at_address(return_address);
+        should_remove_breakpoint = true;
+    }
+
+    continue_execution();
+
+    if (should_remove_breakpoint) {
+        remove_breakpoint_at_address(return_address);
+    }
 }
+
+
+
+/** 
+ * @brief: 单步步进(逐语句)
+ *         一直调用[single_step_instruction]，直到代码运行到新的一行
+ * 
+ **/
+void debugger::step_in() {
+    // std::cout << std::
+    auto line = get_line_entry_from_pc(get_current_pc_offset_address())->line;
+
+    // 如果当前行数等于最开始的行数，执行指令级单步步进
+    while(get_line_entry_from_pc(get_current_pc_offset_address())->line == line) {
+        single_step_instruction_with_breakpoint_check();
+    }
+
+    // 获取去偏置后的pc地址，在[DWARF - line_table]中查找对应的代码行
+    // 并打印对应的文本信息
+    auto line_entry = get_line_entry_from_pc(get_current_pc_offset_address());
+    print_source(line_entry->file->path, line_entry->line);
+}
+
+
+
+
+/**
+ * @brief: 逐过程调试。遇到子函数时会执行子函数，但是不会进入子函数内部
+ *         而是直接返回。
+ **/
+void debugger::step_over() {
+    // Get the low pc and high pc values for the given function DIE.
+    auto func = get_function_from_pc(get_current_pc_offset_address()); // 当前所在函数
+    auto func_entry = dwarf::at_low_pc(func);                          // 当前所在函数起始地址
+    auto func_end = dwarf::at_high_pc(func);                           // 当前所在函数结束地址
+
+    auto line = get_line_entry_from_pc(func_entry);       // 函数入口对应的行数
+    auto start_line = get_line_entry_from_pc(func_entry); // 当前pc对应的行数
+    
+
+    // 创建一个向量，用于保存添加的地址。用于最后的删除。
+    std::vector<std::intptr_t> to_delete{};
+    
+    // 为了设置断点，从[DWATF]得到的地址都要先进行偏置
+    // 从[line]开始设置断点，跳过[start_line]，直到[func_end];
+
+    while (line->address < func_end) {
+        // 对地址进行偏置
+        auto load_address = offset_dwatf_address(line->address);
+        if (line->address != start_line->address && !m_breakpoints.count(load_address)) {
+            // line不等于[start_line]且本身不为断点
+            set_breakpoint_at_address(load_address);
+            to_delete.push_back(load_address);
+        }
+        line ++;
+    }
+    // Setting a breakpiont on the return address of the funcion, just like in [step_out]
+    auto frame_pointer = get_register_value(m_pid, reg_x86_64::rbp);
+    auto return_address = read_memory(frame_pointer + 8);
+    if (!m_breakpoints.count(return_address)) {
+        set_breakpoint_at_address(return_address);
+        to_delete.push_back(return_address);
+    }
+
+
+    // 继续执行程序，直到某个断点被命中，则消除掉所有添加的断点
+    continue_execution();
+
+    for (auto addr : to_delete) {
+        remove_breakpoint_at_address(addr);
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
