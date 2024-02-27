@@ -7,4 +7,5 @@ add_executable( minidebug main.cpp linenoise.c linenoise.h
                 breakpoint.h    breakpoint.cpp
                 register.h      register.cpp)
 
+add_definitions("-Wall -g")
 target_link_libraries(minidebug dwarf++ elf++)

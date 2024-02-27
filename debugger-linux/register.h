@@ -47,8 +47,8 @@ uint64_t get_register_value(pid_t pid, reg_x86_64 reg);
 // Set [value] in register [reg] of process [pid]
 void set_register_value(pid_t pid, reg_x86_64 reg, uint64_t value);
 
-// dwarf不太了解，这个函数就照抄了
-uint64_t get_register_value_from_dwarf_register(pid_t pid, unsigned regnum);
+// // dwarf不太了解，这个函数就照抄了
+// uint64_t get_register_value_from_dwarf_register(pid_t pid, unsigned regnum);
 
 
 // Get the name of specific register

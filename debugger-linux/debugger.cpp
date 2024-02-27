@@ -21,7 +21,6 @@
 #include "libelfin/dwarf/dwarf++.hh"
 
 
-
 std::vector<std::string> split (const std::string &s, char delimeter) {
     std::vector<std::string> out{};
     std::istringstream ss {s};
@@ -36,12 +35,10 @@ std::vector<std::string> split (const std::string &s, char delimeter) {
 }
 
 bool is_prefix(const std::string& s, const std::string& of) {
-    if (s.size() > of.size()) {
-        return false;
+    if (!strcmp(s.c_str(), of.c_str())) {
+        return true;
     }
-
-    // 在指定的范围内比较两个 iterator 是否想等
-    return std::equal(s.begin(), s.end(), of.begin());
+    return false;
 }
 
 
@@ -50,6 +47,8 @@ void debugger::run() {
     wait_for_signal();
     initialise_load_address();
     std::cout << "loaded address 0x" << std::hex << m_load_address << std::endl;
+    auto func = get_function_from_pc(get_current_pc_offset_address());
+    std::cout << dwarf::at_name(func) << std::endl;
 
     // 在循环中处理用户的命令
     char* line = nullptr;
@@ -110,11 +109,11 @@ void debugger::handle_command(const std::string& line) {
 
 
     // 指令级单步步进
-    } else if (is_prefix(command, "stepi")) {
+    }  else if (is_prefix(command, "stepi")) {
         single_step_instruction_with_breakpoint_check();
         auto line_entry = get_line_entry_from_pc(get_pc());
         print_source(line_entry->file->path, line_entry->line);
-    
+
     // 逐过程
     } else if (is_prefix(command, "next") || is_prefix(command, "n")) {
         step_over();
@@ -122,6 +121,7 @@ void debugger::handle_command(const std::string& line) {
 
     // 逐语句
     } else if (is_prefix(command, "step") || is_prefix(command, "s")) {
+        std::cout << "step in" << std::endl;
         step_in();
 
     // 跳出
@@ -256,11 +256,13 @@ dwarf::die debugger::get_function_from_pc(uint64_t pc) {
         // Compilation Unit包含多个IDEs，如果pc在某个CU中，则需要遍历该Cu的IDEs，判断其tag
         if (dwarf::die_pc_range(cu.root()).contains(pc)) {
             for (const auto& die : cu.root()) {
+                // std::cout << die.tag << std::endl;
                 if (die.tag == dwarf::DW_TAG::subprogram) {
+
                     // function的IDE的tag一定是subprogram
-                    if (dwarf::die_pc_range(die).contains(pc)) {
-                        return die;
-                    }
+                    // if (dwarf::die_pc_range(die).contains(pc)) {
+                    return die;
+                    // }
                 }
             }
         }
@@ -384,14 +386,17 @@ void debugger::handle_sigtrap(siginfo_t info) {
 
             // std::cout << "Hit breakpoint at address 0x" 
             //           << std::hex << std::setfill('0') << get_pc() << std::endl;
-
+            //
 
             // [get_pc]的返回地址是栈地址，而[dwatf]里的地址信息都是以
             // loaded address的相对地址。因此，从[get_pc]得到的地址需要 
             // 减去loadded address.
-            auto offset_pc = offset_load_address(get_pc());
+            // auto offset_pc = offset_load_address(get_pc()); 
+            // auto line_entry = get_line_entry_from_pc(offset_pc);
             
-            auto line_entry = get_line_entry_from_pc(offset_pc);
+            std::cout << "123213" << std::endl;
+            auto line_entry = get_line_entry_from_pc(get_current_pc_offset_address());
+            
             print_source(line_entry->file->path, line_entry->line);
             return;
 
@@ -474,7 +479,6 @@ void debugger::step_out() {
  * 
  **/
 void debugger::step_in() {
-    // std::cout << std::
     auto line = get_line_entry_from_pc(get_current_pc_offset_address())->line;
 
     // 如果当前行数等于最开始的行数，执行指令级单步步进
