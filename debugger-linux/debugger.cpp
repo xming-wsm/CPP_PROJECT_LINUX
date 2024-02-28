@@ -192,6 +192,10 @@ void debugger::handle_command(const std::string& line) {
         }
     } else if (is_prefix(command, "function")) {
         dwarf_function_information("./build/function_information.txt");
+    
+
+    } else if (is_prefix(command, "backtrace")) {
+        print_backtrace();
     }
 
 
@@ -716,8 +720,36 @@ void debugger::dwarf_function_information(const std::string& file_name) {
 
 
 
+/**
+ * @brief: 打印当前函数所在堆栈链
+ */
+void debugger::print_backtrace() {
+    // 使用 Lambda 表达式定义一个匿名函数，用于打印堆栈信息
+    auto output_frame = [frame_number = 0] (auto&& func) mutable {
+        std::cout << "frame #" << frame_number++ << ":0x" << dwarf::at_low_pc(func)
+                  << " " << dwarf::at_name(func) << std::endl;
+    };
 
+    // 通过去偏置后的地址找到对应的函数DIE
+    auto current_func = get_function_from_pc(offset_load_address(get_pc()));
+    output_frame(current_func);
 
+    // 获取堆栈起始地址与返回地址
+    auto frame_pointer = get_register_value(m_pid, reg_x86_64::rbp);
+    auto return_address = read_memory(frame_pointer + 8);
+
+    // 打印函数栈信息，直到[main]函数
+    while (dwarf::at_name(current_func) != "main") {
+
+        // std::cout << "\t<debug>: return_address - 0x" << std::hex << return_address << std::endl;
+        current_func = get_function_from_pc(offset_load_address(return_address));
+        output_frame(current_func);
+
+        // 更新栈指针
+        frame_pointer = read_memory(frame_pointer);
+        return_address = read_memory(frame_pointer + 8);
+    }
+}
 
 
 

@@ -148,6 +148,9 @@ public:
     // 获取函数信息
     void dwarf_function_information(const std::string& file_name);
 
+    // 打印函数堆栈
+    void print_backtrace();
+
 private:
     std::string m_prog_name;    // 可执行二进制文件的名字
     pid_t m_pid;    
