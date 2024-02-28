@@ -9,6 +9,7 @@
 #include <ios>
 #include <iostream>
 #include <iterator>
+#include <libelfin/elf/data.hh>
 #include <ostream>
 #include <stdexcept>
 #include <stdio.h>
@@ -43,12 +44,53 @@ bool is_prefix(const std::string& s, const std::string& of) {
 
 
 
+bool is_suffix(const std::string& s, const std::string& of) {
+    if (s.size() > of.size()) return false;
+    auto diff = of.size() - s.size();
+    return std::equal(s.begin(), s.end(), of.begin() + diff);
+}
+
+
+
+std::string to_string(symbol_type st) {
+    switch (st) {
+        case symbol_type::notype:   return "notype";
+        case symbol_type::object:   return "object";
+        case symbol_type::file:     return "file";
+        case symbol_type::func:     return "func";
+        case symbol_type::section:  return "section";
+        default: return "Unknown symbol_type st";
+    }
+}
+
+
+symbol_type to_symbol_type(elf::stt sym) {
+    switch (sym) {
+        case elf::stt::notype:      return symbol_type::notype;
+        case elf::stt::object:      return symbol_type::object;
+        case elf::stt::file:        return symbol_type::file;
+        case elf::stt::section:     return symbol_type::section;
+        case elf::stt::func:        return symbol_type::func;
+        default: return symbol_type::notype;
+    }
+}
+
+
+
+
 void debugger::run() {
     wait_for_signal();
     initialise_load_address();
-    std::cout << "loaded address 0x" << std::hex << m_load_address << std::endl;
-    auto func = get_function_from_pc(get_current_pc_offset_address());
-    std::cout << dwarf::at_name(func) << std::endl;
+    // std::cout << "loaded address 0x" << std::hex << m_load_address << std::endl;
+    // auto func = get_function_from_pc(get_current_pc_offset_address());
+    // std::cout << dwarf::at_name(func) << std::endl;
+
+
+    // Test [set_breakpoint_at_source_line];
+    // set_breakpoint_at_source_line("test.c", 17);
+
+    // Test [dwarf_function_information()]
+
 
     // 在循环中处理用户的命令
     char* line = nullptr;
@@ -74,9 +116,24 @@ void debugger::handle_command(const std::string& line) {
         // removed the first two characters of the string, we assume the user has written 0xADDRESS
         // input command: "b 0xADDRESS" or "break 0xADDRESS"
         // stol(addr, nullptr, 16) 即把16进制的地址转为10进制的long
-        std::string addr{args[1], 2};
-        set_breakpoint_at_address(std::stol(addr, nullptr, 16)); // x86系统地址长度为8字节
 
+        if (args[1][0] == '0' && args[1][0] == 'x') {
+            // 1. 根据地址设置断点: b 0xADDRESS
+            std::string addr{args[1], 2};
+            set_breakpoint_at_address(std::stol(addr, nullptr, 16)); // x86系统地址长度为8字节
+            std::cout << "set breakpoint at 0x" << std::hex << std::stol(addr, nullptr, 16);
+        
+        } else if (args[1].find(':') != std::string::npos) {
+            // 2. 根据源文件代码行数设置地址: b <file>:<line> 
+            auto file_and_line = split(args[1], ':');
+            set_breakpoint_at_source_line(file_and_line[0], std::stol(file_and_line[1]));
+            std::cout << "set breakpoint at [" << file_and_line[0] << ":" << file_and_line[1]
+                      << "]:\t";
+            print_source(file_and_line[0], std::stol(file_and_line[1]));
+        } else {
+            // funcion相关函数会出现问题
+            set_breakpoint_at_function(args[1]);
+        }
 
 
     // 处理与寄存器有关的命令
@@ -121,13 +178,20 @@ void debugger::handle_command(const std::string& line) {
 
     // 逐语句
     } else if (is_prefix(command, "step") || is_prefix(command, "s")) {
-        std::cout << "step in" << std::endl;
+        // std::cout << "step in" << std::endl;
         step_in();
 
     // 跳出
     } else if (is_prefix(command, "finish")) {
         step_out();
 
+    } else if (is_prefix(command, "symbol")) {
+        auto syms = lookup_symbol(args[1]);
+        for (auto &&s : syms) {
+            std::cout << s.name << ' ' << to_string(s.type) << "0x" << std::hex << s.addr << std::endl;
+        }
+    } else if (is_prefix(command, "function")) {
+        dwarf_function_information("./build/function_information.txt");
     }
 
 
@@ -148,11 +212,57 @@ void debugger::continue_execution() {
 
 
 void debugger::set_breakpoint_at_address(std::intptr_t addr) {
-    std::cout << "Set breakpoint at address 0x" << std::hex << addr << std::endl;
+    // std::cout << "Set breakpoint at address 0x" << std::hex << addr << std::endl;
     breakpoint bp (m_pid, addr);
     bp.bp_enable();
     m_breakpoints.insert(std::make_pair(addr, bp));
 };
+
+
+/*
+ * @brief: 通过[dwarf]获取函数信息与其起始地址，随后调用[set_breakpoint_at_address]
+ *         设置断点
+ */
+void debugger::set_breakpoint_at_function(const std::string& name) {
+    for (const auto& cu : m_dwarf.compilation_units()) {
+        for (const auto& die : cu.root()) {
+            if (die.has(dwarf::DW_AT::name) && dwarf::at_name(die) == name) {
+                // low_pc 是函数的起始地址（start address of the funcion）
+                auto low_pc = dwarf::at_low_pc(die);
+                auto entry = get_line_entry_from_pc(low_pc);
+                entry ++; // skpi prologue
+                set_breakpoint_at_address(offset_dwarf_address(entry->address));
+            }
+        }
+
+    }
+}
+
+/*
+ * @brief: 根据[.debug_line]中的信息，在对应的地址出打上断点。
+ */
+void debugger::set_breakpoint_at_source_line(const std::string& file, uint64_t line) {
+    // 遍历[DWARF]中的编译单元
+    for (const auto& cu : m_dwarf.compilation_units()) {
+        // 编译单元含中有名字信息，调用[is_suffix]函数，比较CU中的文件名与[file]
+        if (is_suffix(file, dwarf::at_name(cu.root()))) {
+            // 获取[line_table]信息，找到对应的行数
+            const auto& it = cu.get_line_table();
+            for (const auto& entry : it) {
+                if (entry.is_stmt && entry.line == line) {
+                    // 若行数与[line]相匹配，则在对应地址设置断点
+                    set_breakpoint_at_address(offset_dwarf_address(entry.address));
+                    return;
+                }
+            }
+        }
+        
+    }
+
+}
+
+
+
 
 
 void debugger::remove_breakpoint_at_address(std::intptr_t addr) {
@@ -205,7 +315,7 @@ void debugger::step_over_breakpoint() {
     //           << std::hex << possiable_breakpoint_location << std::endl;
     if (m_breakpoints.count(possiable_breakpoint_location)) {
         auto& bp = m_breakpoints.at(possiable_breakpoint_location);
-        std::cout << "Step over breakpoint at 0x" << std::hex << bp.get_address() << std::endl;
+        // std::cout << "Step over breakpoint at 0x" << std::hex << bp.get_address() << std::endl;
 
         if (bp.is_enabled()) {
             bp.bp_disable();
@@ -258,11 +368,18 @@ dwarf::die debugger::get_function_from_pc(uint64_t pc) {
             for (const auto& die : cu.root()) {
                 // std::cout << die.tag << std::endl;
                 if (die.tag == dwarf::DW_TAG::subprogram) {
+                    // std::cout << dwarf::at_name(die) << std::endl;
 
-                    // function的IDE的tag一定是subprogram
-                    // if (dwarf::die_pc_range(die).contains(pc)) {
-                    return die;
-                    // }
+                    // function的IDE的tag一定是subprogram，但是
+                    // 库函数是不包含 DW_AT_Low_pc的，需要添加
+                    // 一个条件进行判断。
+                    // main函数不需要排除
+                    if (die.has(dwarf::DW_AT::prototyped) && dwarf::at_name(die)!= "main") {
+                        continue;
+                    }
+                    if (dwarf::die_pc_range(die).contains(pc)) {
+                        return die;
+                    }
                 }
             }
         }
@@ -273,7 +390,7 @@ dwarf::die debugger::get_function_from_pc(uint64_t pc) {
 /**
  * @biref: 根据pc地址找到[line_table]中对应的行数
  * 
- * 1. 通过对 m_dwatf 的迭代器访问 compilation units，遍历所有编译单元
+ * 1. 通过对 m_dwarf 的迭代器访问 compilation units，遍历所有编译单元
  * 2. 检查 Cu 的 die 的地址是否包含给定的指令地址pc，如果包含，就获取该编译单元的 line talbe
  * 3. 通过对 line table 的迭代器，调用其成员函数 find_address，找到地址pc对应的行数
  * 4. 如果 find_address 的返回值为 line table 的最后一个，说明没有找到，超出范围
@@ -299,7 +416,7 @@ dwarf::line_table::iterator debugger::get_line_entry_from_pc(uint64_t pc) {
 
 /**
  * 二进制文件是有其加载地址(loaded address)，而 dwarf 中所给出的地址都是基于加载地址
- * 为了在正确的地址设置断点，我们需要在 dwatf 的基础上偏执一个 loaded address
+ * 为了在正确的地址设置断点，我们需要在 dwarf 的基础上偏执一个 loaded address
  * loaded address 可由 "proc/<pid>/maps" 的第一行获得
  */
 void debugger::initialise_load_address() {
@@ -325,7 +442,7 @@ uint64_t debugger::offset_load_address(uint64_t addr) {
 }
 
 
-uint64_t debugger::offset_dwatf_address(uint64_t addr) {
+uint64_t debugger::offset_dwarf_address(uint64_t addr) {
     return addr + m_load_address;
 }
 
@@ -388,13 +505,13 @@ void debugger::handle_sigtrap(siginfo_t info) {
             //           << std::hex << std::setfill('0') << get_pc() << std::endl;
             //
 
-            // [get_pc]的返回地址是栈地址，而[dwatf]里的地址信息都是以
+            // [get_pc]的返回地址是栈地址，而[dwarf]里的地址信息都是以
             // loaded address的相对地址。因此，从[get_pc]得到的地址需要 
             // 减去loadded address.
             // auto offset_pc = offset_load_address(get_pc()); 
             // auto line_entry = get_line_entry_from_pc(offset_pc);
             
-            std::cout << "123213" << std::endl;
+            // std::cout << "123213" << std::endl;
             auto line_entry = get_line_entry_from_pc(get_current_pc_offset_address());
             
             print_source(line_entry->file->path, line_entry->line);
@@ -512,12 +629,12 @@ void debugger::step_over() {
     // 创建一个向量，用于保存添加的地址。用于最后的删除。
     std::vector<std::intptr_t> to_delete{};
     
-    // 为了设置断点，从[DWATF]得到的地址都要先进行偏置
+    // 为了设置断点，从[dwarf]得到的地址都要先进行偏置
     // 从[line]开始设置断点，跳过[start_line]，直到[func_end];
 
     while (line->address < func_end) {
         // 对地址进行偏置
-        auto load_address = offset_dwatf_address(line->address);
+        auto load_address = offset_dwarf_address(line->address);
         if (line->address != start_line->address && !m_breakpoints.count(load_address)) {
             // line不等于[start_line]且本身不为断点
             set_breakpoint_at_address(load_address);
@@ -547,13 +664,55 @@ void debugger::step_over() {
 
 
 
+std::vector<symbol> debugger::lookup_symbol(const std::string& name) {
+    std::vector<symbol> syms;
+    for (auto &sec : m_elf.sections()) {
+        if (sec.get_hdr().type != elf::sht::symtab && sec.get_hdr().type != elf::sht::dynsym)
+            continue;
+
+        for (auto sym : sec.as_symtab()) {
+            if (sym.get_name() == name) {
+                auto &d = sym.get_data();
+                syms.push_back(symbol{to_symbol_type(d.type()), sym.get_name(), d.value});
+            }
+        }
+    }
+    return syms;
+}
 
 
 
 
 
+void debugger::dwarf_function_information(const std::string& file_name) {
+    std::ofstream write_file;
+    write_file.open(file_name, std::ios::app);
+    const std::vector<dwarf::compilation_unit> &uints = m_dwarf.compilation_units();
+    std::intptr_t pc = get_current_pc_offset_address();
+    for (const auto& cu : uints) {
+        // Compilation Unit包含多个IDEs，如果pc在某个CU中，则需要遍历该Cu的IDEs，判断其tag
+        if (dwarf::die_pc_range(cu.root()).contains(pc)) {
+            for (const auto& die : cu.root()) {
+                // std::cout << die.tag << std::endl;
+                if (die.tag == dwarf::DW_TAG::subprogram) {
+                    // std::cout << dwarf::at_name(die) << std::endl;
 
+                    // function的IDE的tag一定是subprogram，但是
+                    // 库函数是不包含 DW_AT_Low_pc的，需要添加
+                    // 一个条件进行判断。
+                    if (die.has(dwarf::DW_AT::prototyped)) {
+                        continue;
+                    }
 
+                    std::cout << dwarf::at_name(die) << " "
+                              << std::hex << dwarf::at_low_pc(die)
+                              << "\t" << dwarf::at_high_pc(die) << std::endl;
+                }
+            }
+        }
+    }
+    write_file.close();
+}
 
 
 

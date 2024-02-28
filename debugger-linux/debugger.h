@@ -28,10 +28,40 @@
 #include "libelfin/dwarf/dwarf++.hh"
 
 
+enum class symbol_type {
+    notype,     // No type (e.g., absolute symbol)
+    object,     // Data object
+    func,       // Funtion entry point
+    section,    // Source file associated with the object file
+    file,
+};
+
+
+// 对于[.symtab]中的数据，只关心[type], [name], [addr(value)]
+struct symbol {
+    symbol_type type;
+    std::string name;
+    std::uintptr_t addr;
+};
+
+
+
+
 // 根据分割符[delimeter]分割字符串[s]
 std::vector<std::string> split (const std::string &s, char delimeter);
 // 判断字符串[s]与字符串[of]是否相等
 bool is_prefix(const std::string& s, const std::string& of);
+bool is_suffix(const std::string& s, const std::string& of);
+
+// 返回[st]对应的字符串文本
+std::string to_string(symbol_type st);
+// 将从[libelfin]获得的符号类型与我们定义的enum互相映射
+symbol_type to_symbol_type(elf::stt sym);
+
+
+
+
+
 
 
 class debugger {
@@ -56,6 +86,10 @@ public:
     void continue_execution();
     // 根据用户输入地址[addr]设置断点
     void set_breakpoint_at_address(std::intptr_t addr);
+    // 根据函数名字设置断点
+    void set_breakpoint_at_function(const std::string& name);
+    // 根据源代码行数设置断点
+    void set_breakpoint_at_source_line(const std::string& file, uint64_t line);
     // 移除断点
     void remove_breakpoint_at_address(std::intptr_t addr);
     // 打印寄存器信息
@@ -73,7 +107,9 @@ public:
     // 调用waitpid函数，等待信号
     void wait_for_signal();
 
-    /* Funciton using [dwatf] and [elf] */
+
+
+    /* Funciton using [dwarf] and [elf] */
     // 根据pc判断目前所在的函数 
     dwarf::die get_function_from_pc(uint64_t pc);
     // 根据pc判断目前地址对应的源代码行数
@@ -81,7 +117,7 @@ public:
     // 初始化加载地址
     void initialise_load_address();
     // 进行加载地址偏置
-    uint64_t offset_dwatf_address(uint64_t addr);
+    uint64_t offset_dwarf_address(uint64_t addr);
     // 去掉加载地址偏偏置
     uint64_t  offset_load_address(uint64_t addr);
     // 封装，得到去偏置后的PC地址
@@ -105,6 +141,12 @@ public:
     void step_in();
     // 逐过程
     void step_over();
+
+
+    // symbol file
+    std::vector<symbol> lookup_symbol(const std::string& name);
+    // 获取函数信息
+    void dwarf_function_information(const std::string& file_name);
 
 private:
     std::string m_prog_name;    // 可执行二进制文件的名字
