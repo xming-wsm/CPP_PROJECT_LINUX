@@ -151,6 +151,9 @@ public:
     // 打印函数堆栈
     void print_backtrace();
 
+    // 查看变量
+    void read_variables();
+
 private:
     std::string m_prog_name;    // 可执行二进制文件的名字
     pid_t m_pid;    

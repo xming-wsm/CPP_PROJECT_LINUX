@@ -1,4 +1,5 @@
 #include "debugger.h"
+#include "ptrace_expr_context.h"
 #include "register.h"
 #include <algorithm>
 #include <bits/types/siginfo_t.h>
@@ -196,6 +197,10 @@ void debugger::handle_command(const std::string& line) {
 
     } else if (is_prefix(command, "backtrace")) {
         print_backtrace();
+    
+
+    } else if (is_prefix(command, "variables")) {
+        read_variables();
     }
 
 
@@ -754,7 +759,46 @@ void debugger::print_backtrace() {
 
 
 
+void debugger::read_variables() {
+    using namespace dwarf;
 
+    // 找到当前所在行数
+    auto func = get_function_from_pc(get_current_pc_offset_address());
+
+    // 在函数的DIE中遍历[entries]，寻找[variables]
+    for (const auto& die : func) {
+        if (die.tag == DW_TAG::variable) {
+            auto loc_val = die[DW_AT::location];
+
+            if (loc_val.get_type() == value::type::exprloc) {
+                ptrace_expr_context context {m_pid};
+
+                // Ask [libelfin] to evaluate the expression for us
+                auto result = loc_val.as_exprloc().evaluate(&context);
+
+                switch (result.location_type) {
+                    case expr_result::type::address: {
+                        auto value = read_memory(result.value);
+                        std::cout << at_name(die) << " (0x" << std::hex << result.value << ") ="
+                                  << value << std::endl;
+                    }
+
+                    case expr_result::type::reg: {
+                        auto value = get_register_value_from_dwarf_register(m_pid, result.value);
+                        std::cout << at_name(die)<< " (reg" << result.value << ") = "
+                                  << value << std::endl;
+                        break;
+                    }
+
+                    default:
+                        throw std::runtime_error{"Unhandled variable location"};
+                }
+            } 
+        }
+    }
+
+
+}
 
 
 

@@ -525,6 +525,7 @@ CMakeFiles/minidebug.dir/debugger.cpp.o: ../debugger.cpp \
   /usr/include/c++/12/bits/stl_tree.h \
   /usr/include/c++/12/bits/stl_map.h \
   /usr/include/c++/12/bits/stl_multimap.h \
+  ../ptrace_expr_context.h \
   ../register.h \
   /usr/include/c++/12/array \
   /usr/include/c++/12/compare \
@@ -544,8 +545,8 @@ CMakeFiles/minidebug.dir/debugger.cpp.o: ../debugger.cpp \
   /usr/include/c++/12/bits/locale_facets_nonio.tcc \
   /usr/include/c++/12/bits/locale_conv.h \
   /usr/include/c++/12/bits/quoted_string.h \
-  /usr/local/include/libelfin/elf/data.hh \
-  /usr/local/include/libelfin/dwarf/data.hh
+  /usr/local/include/libelfin/dwarf/data.hh \
+  /usr/local/include/libelfin/elf/data.hh
 
 CMakeFiles/minidebug.dir/linenoise.c.o: ../linenoise.c \
   /usr/include/stdc-predef.h \
@@ -1227,6 +1228,8 @@ CMakeFiles/minidebug.dir/register.cpp.o: ../register.cpp \
 /usr/include/c++/12/compare:
 
 /usr/include/c++/12/array:
+
+../ptrace_expr_context.h:
 
 /usr/include/c++/12/bits/stl_multimap.h:
 

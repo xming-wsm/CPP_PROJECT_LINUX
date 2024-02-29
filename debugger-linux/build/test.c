@@ -33,7 +33,7 @@ void f2() {
 
 void a() {
     int foo = 1;
-    printf("Now we are in fun-a\n");
+    printf("Now we are in fun-a with foo %d\n", foo);
 }
 
 void b() {
