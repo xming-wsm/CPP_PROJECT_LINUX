@@ -1,2 +1,4 @@
 # CPP_PROJECT_LINUX
-在Linux环境中的一些CPP项目（服务器、QT等等、滤波器等等）
+## 1. debugger-linux [done]
+在Linux上编写一个简易迷你的调试器，教程链接为
+- [Writing a Linux Debugger](https://blog.tartanllama.xyz/writing-a-linux-debugger-setup/)
